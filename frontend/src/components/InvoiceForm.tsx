@@ -33,9 +33,9 @@ const InvoiceForm: React.FC<InvoiceFormProps> = ({ onClose, setInvoices, selecte
     dueDate: '',
     invoiceNote: '',
     description: '',
-    qty: 0,
-    rate: 0,
-    total: 0,
+    qty: '',
+    rate: '',
+    total: '',
   };
 
   console.log("Selected Invoice: ", selectedInvoice);
@@ -48,7 +48,7 @@ const InvoiceForm: React.FC<InvoiceFormProps> = ({ onClose, setInvoices, selecte
   
   useEffect(() => {
     if (selectedInvoice) {
-      for (const [key, value] of Object.entries(selectedInvoice)) {
+      for (const [key, value] of Object.entries(selectedInvoice?.attributes)) {
         dispatch({ field: key, value });
       }
     } else {
@@ -80,6 +80,7 @@ const InvoiceForm: React.FC<InvoiceFormProps> = ({ onClose, setInvoices, selecte
         });
         console.log(data)
         setInvoices((prev) => prev.map((inv) => (inv.id === selectedInvoice.id ? { ...inv, ...formFields } : inv)));
+        window.location.reload()
       } else {
         // Create a new invoice
         const { data } = await axios.post('http://localhost:1337/api/invoices', {
