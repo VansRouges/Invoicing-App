@@ -11,6 +11,7 @@ interface InvoiceFormProps {
 interface Invoice {
   id: number;
   name: string;
+  attributes: {}
   senderEmail: string;
   recipientEmail: string;
   shippingAddress: string;
